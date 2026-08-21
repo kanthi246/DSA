@@ -16,6 +16,10 @@ fun isPalindrome(value: String):Boolean{
         right--
     }
     return true
+
+    //Time: O(n) (arr.sum() has to visit each element to add)
+    //Space: O(1) (you only use one extra variable)
+    // Approach :- Two Pointer
 }
 
 fun isPalindromeNumber(x: Int): Boolean {
@@ -32,4 +36,9 @@ fun isPalindromeNumber(x: Int): Boolean {
     }
 
     return true
+
+
+    //Time: O(n) (arr.sum() has to visit each element to add)
+    //Space: O(1) (you only use one extra variable)
+    // Approach :- Two Pointer
 }

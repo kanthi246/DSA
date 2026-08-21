@@ -1,0 +1,121 @@
+
+What is a Hashmap ?
+    A Hash map is used to store the data in a form of key value pairs.
+    A HashMap lets you associate one piece of information with another piece
+    of information and retrieve it quickly using the key.
+
+    Ex:- val map = HashMap<String, Int>()
+         map["Apple"] = 10
+         map["Banana"] = 20
+         map["Orange"] = 30
+
+    Here: "Apple" = key, 10 = value
+
+Why do we need HashMap ?
+    Lets say we have an arrayOf("Kiran", "Kusuma", "Kashvika", "Kiran", "Kusuma")
+    and if we want to know how many were repeated how many times
+
+    Without HashMap, you'd have to repeatedly search the array.
+
+    With HashMap:- val frequency = HashMap<String, Int>()
+
+    You can simply maintain:- Kiran → count, Kusuma  → count, Kashvika  → count
+
+Creating a HashMap in Kotlin ?
+    val map = HashMap<String, Int>()
+    This means: Key type = String , Value type  = Int
+    So this is valid: map["Kiran"] = 10
+    But this isn't: map[10] = "Kiran"
+    because the map expects: String → Int
+
+Adding data
+    You can add something using: map.put("Kiran", 10)
+    or Kotlin's simpler syntax: map["Kiran"] = 10
+
+    Ex:- val map = HashMap<String, Int>()
+         map.put("Kiran", 10)
+         map.put("Ravi", 20)
+
+What happens if the key already exists ?
+    Suppose: - map["Kiran"] = 10
+    Then:- map["Kiran"] = 50
+    The map becomes:- Kiran → 50
+
+    It does not create another Kiran. A HashMap has unique keys.
+
+    The second value replaces the first.
+    Key       Value
+    ----------------
+    Kiran     50
+
+get() — retrieve a value
+    val map = HashMap<String, Int>()
+    map["Kiran"] = 100
+    Now:- map.get("Kiran")
+    returns:- 100
+
+    We can also write:- map["Kiran"]
+    So: val marks = map["Kiran"]
+    marks becomes:- 100
+
+What if the key doesn't exist?
+    Suppose:- map["Kiran"] exists.
+    But:- map["Nalamati"] doesn't exist.
+    Then:- map["Nalamati"] returns:- null
+
+    This is why you'll often see: map[key] ?: 0
+    For example:val count = map["Kiran"] ?: 0
+    Give me Kiran's value. If Kiran doesn't exist, give me 0.
+
+containsKey()
+    map.containsKey("Kiran")
+    It asks:- Does this key exist in the HashMap?
+
+    Example:- val map = HashMap<String, Int>()
+    map["Kiran"] = 100
+    println(map.containsKey("Kiran"))
+    Result:- true
+    So remember: containsKey() -> True/False
+
+    Similarly containsValue() also give the result as True/False
+
+remove()
+    Suppose: map["Kiran"] = 100
+    You can remove Kiran: map.remove("Kiran")
+    Now: Kiran is gone.
+
+size
+    We can find how many key-value pairs exist: map.size
+    Example:
+    map["Kiran"] = 100
+    map["Kusuma"] = 200
+    map["Kashvika"] = 300
+    Then: map.size
+    returns: 3
+
+isEmpty()
+    Checks whether the map has anything inside i.e map.isEmpty()
+    If there are no entries: true Otherwise:false
+    And:map.isNotEmpty() does the opposite.
+
+keys
+    We can get all the keys:- map.keys //Kiran,Kusuma,Kashvika
+    We can loop:
+    for (key in map.keys) {
+        println(key)
+    }
+
+    Similarly values also we can do the same
+
+entries
+    This is useful when you want both key and value.
+    for (entry in map.entries) {
+        println("${entry.key} → ${entry.value}")
+    }
+    Or more commonly:
+    for ((key, value) in map) {
+        println("$key → $value")
+    }
+    For:
+    Kiran → 100
+    Kusuma  → 200

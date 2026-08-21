@@ -1,7 +1,7 @@
 package com.kanthi
 
 fun main() {
-    val array = intArrayOf(10, 20, 30, 110, 50)
+    val array = intArrayOf(1, 9, 8, 4, 0, 0, 2, 7)
 
 //    println(" Array Item: ${array[2]}")
 //
@@ -17,7 +17,30 @@ fun main() {
 
     println("Second Element: ${findSecondLargest(array)}")
 
-    println("Move Zero to End: ${moveZeros(intArrayOf(1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0)).contentToString()}")
+    println("Reverse array :- ${reverseArray(array).contentToString()}")
+
+    println("Move Zero to End: ${moveZeros(array).contentToString()}")
+
+    println("Find the Sub Array: ${subArray(array)}")
+
+}
+
+
+//reverse the array
+fun reverseArray(arr: IntArray) : IntArray {
+    var left = 0
+    var right = arr.size -1
+    while(left < right){
+        val temp = arr[left]
+        arr[left] = arr[right]
+        arr[right] = temp
+        left++
+        right--
+    }
+    return arr
+//    * Time: O(n) (you visit each element once)
+//    * Space: O(1) (you only use one extra variable)
+    // Approach :- Two Pointer Traversal
 }
 
 //find the largest element in an array
@@ -31,6 +54,7 @@ fun findLargest(array: IntArray): Int {
     return largest
 //    * Time: O(n) (you visit each element once)
 //    * Space: O(1) (you only use one extra variable)
+    // Approach :- Array Traversal
 }
 
 //find the Second largest element in an array
@@ -48,22 +72,37 @@ fun findSecondLargest(array: IntArray): Int {
     return secondLargest
 //    * Time: O(n) (you visit each element once)
 //    * Space: O(1) (you only have two extra variable)
+    // Approach :- Array Traversal
 }
 
 //move all the zeros to end
-fun moveZeros(array: IntArray): IntArray {
-    var zero = 0
-    for(i in array.indices){
-        if(array[i] != 0){
-            array[zero] = array[i]
-            zero++
+fun moveZeros(array: IntArray) : IntArray {
+    var i = 0
+    for(item in array){
+        if(item != 0){
+            array[i] = item
+            i++
         }
     }
-    while(zero<array.size) {
-        array[zero] = 0
-        zero++
+    while(i<array.size){
+        array[i] = 0
+        i++
     }
     return array
 //    * Time: O(n) (you visit each element once)
 //    * Space: O(1) (you only have two extra variable)
+    // Approach :- Two Pointer Traversal
+}
+
+fun subArray(array: IntArray): Int {
+    var current = array[0]
+    var max = array[0]
+    for (i in 1 until array.size) {
+        current = maxOf(array[i], current + array[i])
+        max = maxOf(max, current)
+    }
+    return max
+//    * Time: O(n) (you visit each element once)
+//    * Space: O(1) (you only have two extra variable)
+    // Approach :- Kadane's Algorithm
 }
