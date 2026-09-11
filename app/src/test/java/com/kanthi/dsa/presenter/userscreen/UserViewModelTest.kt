@@ -2,7 +2,7 @@ package com.kanthi.dsa.presenter.userscreen
 
 import com.kanthi.dsa.core.Resource
 import com.kanthi.dsa.domain.model.User
-import com.kanthi.dsa.domain.repository.UserRepository
+import com.kanthi.dsa.domain.usecase.GetUsersUseCase
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -43,37 +43,37 @@ class UserViewModelTest {
                 phone = "9492289246"
             )
         )
-        val repository = mockk<UserRepository>()
+        val getUsersUseCase = mockk<GetUsersUseCase>()
 
-        every { repository.getUsers() } returns flowOf(
+        every { getUsersUseCase() } returns flowOf(
             Resource.Loading,
             Resource.Success(users)
         )
 
-        val viewModel = UserViewModel(repository)
+        val viewModel = UserViewModel(getUsersUseCase)
 
         viewModel.getUsers()
 
         assertEquals(UiState.Success(users), viewModel.uiState.value)
-        verify(exactly = 1) { repository.getUsers() }
+        verify(exactly = 1) { getUsersUseCase() }
     }
 
     @Test
     fun `getUsers updates UI state to error when repository emits error`() = runTest {
         val errorMessage = "No internet connection"
-        val repository = mockk<UserRepository>()
+        val getUsersUseCase = mockk<GetUsersUseCase>()
 
-        every { repository.getUsers() } returns flowOf(
+        every { getUsersUseCase() } returns flowOf(
             Resource.Loading,
             Resource.Error(errorMessage)
         )
 
-        val viewModel = UserViewModel(repository)
+        val viewModel = UserViewModel(getUsersUseCase)
 
         viewModel.getUsers()
 
         assertEquals(UiState.Error(errorMessage), viewModel.uiState.value)
-        verify(exactly = 1) { repository.getUsers() }
+        verify(exactly = 1) { getUsersUseCase() }
     }
 
 }

@@ -3,7 +3,7 @@ package com.kanthi.dsa.presenter.userscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kanthi.dsa.core.Resource
-import com.kanthi.dsa.domain.repository.UserRepository
+import com.kanthi.dsa.domain.usecase.GetUsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val getUsersUseCase: GetUsersUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
@@ -21,7 +21,7 @@ class UserViewModel @Inject constructor(
 
     fun getUsers() {
         viewModelScope.launch {
-            userRepository.getUsers().collect { resource ->
+            getUsersUseCase().collect { resource ->
                 _uiState.value = when (resource) {
                     is Resource.Loading -> UiState.Loading
 
