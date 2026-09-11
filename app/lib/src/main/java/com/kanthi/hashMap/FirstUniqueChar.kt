@@ -7,10 +7,10 @@ fun main(){
 
 fun findFirstNonRepeatingChar(value: String) {
     val char = value.toCharArray()
-    val map = HashMap<Char,Int>()
+    val map = mutableMapOf<Char,Int>()
 
-    for(item in char){
-        map[item] = map.getOrDefault(item,0) + 1
+    for(i in char){
+        map[i] = map.getOrDefault(i,0) + 1
     }
 
     println(map)

@@ -5,7 +5,10 @@ fun main(){
     println("IsPalindromeNumber:-${isPalindromeNumber(121)}")
 }
 
-fun isPalindrome(value: String):Boolean{
+fun isPalindrome(value: String?):Boolean{
+
+    if (value.isNullOrEmpty()) return false
+
     var left = 0
     var right = value.length - 1
     while(left < right){

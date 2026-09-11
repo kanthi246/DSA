@@ -9,22 +9,23 @@ fun main(){
     takeTopTwo(result)
 }
 
-fun takeTopTwo(array: HashMap<String, Int>) {
+fun findFrequency(array: Array<String>): MutableMap<String,Int> {
+    val map = mutableMapOf<String,Int>()
 
-     val result =  array.entries.sortedByDescending { it.value }.take(2)
+    for(i in array){
+        map[i] = map.getOrDefault(i,0) + 1
+    }
+
+    return map
+}
+
+fun takeTopTwo(array: MutableMap<String, Int>) {
+
+    val result =  array.entries.sortedByDescending { it.value }.take(2)
 
     println("Top Two items $result")
 }
 
 
-fun findFrequency(array: Array<String>): HashMap<String,Int> {
-    val map = HashMap<String,Int>()
-
-    for(item in array){
-        map[item] = map.getOrDefault(item,0) + 1
-    }
-
-    return map
-}
 
 

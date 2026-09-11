@@ -3,6 +3,7 @@ package com.kanthi.hashMap
 fun main(){
     val array = intArrayOf(1, 2, 3, 4, 2, 5, 3)
     findFirstDuplicate(array)
+    findDuplicates(array)
 }
 
 fun findDuplicates(array: IntArray){

@@ -1,4 +1,4 @@
-package com.kanthi.dsa.ui.theme
+package com.kanthi.dsa.presenter.theme
 
 import androidx.compose.ui.graphics.Color
 
