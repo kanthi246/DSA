@@ -1,10 +1,12 @@
 package com.kanthi.hashMap
 
+/** Demonstrates integer frequency counting. */
 fun main(){
     val array = intArrayOf(1, 2, 3, 2, 4, 1, 5, 2)
     findFrequencyOfEachNo(array)
 }
 
+/** Prints frequencies and selected frequency statistics for [array]. */
 fun findFrequencyOfEachNo(array: IntArray){
     val map = mutableMapOf<Int,Int>()
     for(i in array){

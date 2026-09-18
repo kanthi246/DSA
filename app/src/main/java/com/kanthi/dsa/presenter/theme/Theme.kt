@@ -33,6 +33,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
+/** Applies the app's colors and typography to [content]. */
 fun DSATheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+

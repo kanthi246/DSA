@@ -1,8 +1,11 @@
 package com.kanthi.universityEx
 
+/** Identifier shared by students and courses. */
 typealias Id = Int
 
+/** Student and the courses they subscribe to. */
 data class Student(val id: Id, val name: String, val subscribedCourses: List<Course>)
+/** Course metadata, including whether payment is required. */
 data class Course(val id: Id, val name: String, val isPaid: Boolean)
 
 val kotlinCourse = Course(id = 1, name = "Kotlin", isPaid = true)
@@ -26,11 +29,14 @@ val student3 = Student(id = 3, name = "Ram", subscribedCourses = listOf(
 val student4 = Student(id = 4, name = "Suresh", subscribedCourses = listOf(
     composeCourse))
 
+/** Supplies a list of student-like records. */
 interface Repository<T> {
+    /** Returns the available records. */
     fun getStudents(): List<T>
 }
 
 
+/** In-memory source of sample students. */
 class StudentRepository : Repository<Student> {
 
     private val students = listOf(
@@ -40,6 +46,7 @@ class StudentRepository : Repository<Student> {
         student4
     )
 
+    /** Returns the sample students. */
     override fun getStudents(): List<Student> {
         return students
     }

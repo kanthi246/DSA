@@ -2,8 +2,10 @@ package com.kanthi
 
 //Question : Write an extension method to filter employees list whose age is greater than 30
 
+/** Sample employee data for the filtering examples. */
 data class Employee(val name: String, val age: Int, val designation: String)
 
+/** Creates sample employees for the filtering examples. */
 fun getEmployeeList(): List<Employee> {
     val employeesList = mutableListOf<Employee>()
     var employee = Employee("Neel", 26, "Tech Lead")
@@ -19,6 +21,7 @@ fun getEmployeeList(): List<Employee> {
     return employeesList
 }
 
+/** Compares regular and extension-function filtering. */
 fun main() {
     val employeeList = getEmployeeList()
     println(employeeList)
@@ -29,10 +32,12 @@ fun main() {
 }
 
 
+/** Returns employees older than 30 from this list. */
 fun List<Employee>.filterList(): List<Employee>{
     return this.filter {it.age > 30}
 }
 
+/** Returns employees older than 30 from [employeeList]. */
 fun filterEmployees(employeeList:List<Employee>):List<Employee>{
     return employeeList.filter {it.age >30}
 }

@@ -15,29 +15,29 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
+/** Supplies the HTTP client, Retrofit, and API service to Hilt. */
 object NetworkModule {
 
+    private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient{
+    /** Configures the shared HTTP client and its network logging. */
+    fun provideHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-        return OkHttpClient.Builder().
-        addNetworkInterceptor(loggingInterceptor)
-            .readTimeout(30, TimeUnit.SECONDS).
-            writeTimeout(30, TimeUnit.SECONDS).build()
+        return OkHttpClient.Builder().addNetworkInterceptor(loggingInterceptor)
+            .readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).build()
 
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit{
-        return Retrofit.Builder().
-        baseUrl("https://jsonplaceholder.typicode.com/").
-            client(okHttpClient)
+    /** Builds Retrofit with the API's base URL and JSON converter. */
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).build()
 
     }
@@ -45,6 +45,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    /** Creates the Retrofit implementation of [UserApiService]. */
     fun provideUserApiService(retrofit: Retrofit): UserApiService {
         return retrofit.create(UserApiService::class.java)
     }

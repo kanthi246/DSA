@@ -1,10 +1,12 @@
 package com.kanthi.hashMap
 
+/** Demonstrates counting characters in a string. */
 fun main(){
     val value  = "swiss"
     findFirstNonRepeatingChar(value)
 }
 
+/** Prints character counts and an entry with the lowest count. */
 fun findFirstNonRepeatingChar(value: String) {
     val char = value.toCharArray()
     val map = mutableMapOf<Char,Int>()

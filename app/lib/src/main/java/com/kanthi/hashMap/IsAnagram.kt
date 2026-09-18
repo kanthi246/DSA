@@ -1,9 +1,11 @@
 package com.kanthi.hashMap
 
+/** Demonstrates an anagram check. */
 fun main(){
     println("IsAnagram ${isAnagram("silent","listen")}")
 }
 
+/** Checks whether two strings contain the same character counts. */
 fun isAnagram(s1: String,s2: String) : Boolean{
     val map = mutableMapOf<Char, Int>()
 

@@ -1,5 +1,6 @@
 package com.kanthi.dsa.data.model
 
+/** One user record in the API response. */
 data class UserResponseItem(
     val address: Address,
     val company: Company,

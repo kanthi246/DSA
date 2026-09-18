@@ -1,5 +1,6 @@
 package com.kanthi.dsa.domain.model
 
+/** User information in the domain and presentation layers. */
 data class User(
     val id: Int,
     val name: String,
@@ -13,6 +14,7 @@ data class User(
     val companyBs: String = ""
 )
 
+/** Address and map coordinates associated with a user. */
 data class UserAddress(
     val street: String = "",
     val suite: String = "",

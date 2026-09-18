@@ -1,5 +1,6 @@
 package com.kanthi
 
+/** Builds a cyclic linked list to demonstrate cycle detection. */
 fun main() {
     // Manually build: 1 -> 2 -> 3 -> 4 -> (back to 2, creating a cycle)
     val node1 = ListNode(1)
@@ -19,6 +20,7 @@ fun main() {
     //Space	O(1)Only two pointer variables used, regardless of list size — no extra structure that scales with input
 }
 
+/** Detects a linked-list cycle using slow and fast pointers. */
 fun hasCycle(head: ListNode?): Boolean {
     var slow = head
     var fast = head
@@ -35,6 +37,7 @@ fun hasCycle(head: ListNode?): Boolean {
     return false
 }
 
+/** A singly linked node used by [hasCycle]. */
 class ListNode(var value: Int) {
     var next: ListNode? = null
 }

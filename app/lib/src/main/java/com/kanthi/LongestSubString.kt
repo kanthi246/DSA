@@ -1,5 +1,6 @@
 package com.kanthi
 
+/** Demonstrates longest-substring calculations. */
 fun main(){
     val str = "kanthikirannalamati"
     println("Longest Substring:- ${lengthOfLongestSubstring(str)}")
@@ -7,6 +8,7 @@ fun main(){
 }
 
 //fun LongestSubString  Count
+/** Counts the longest substring without repeated characters. */
 fun lengthOfLongestSubstring(s: String): Int {
     val map = mutableMapOf<Char, Int>()
     var left = 0
@@ -23,6 +25,7 @@ fun lengthOfLongestSubstring(s: String): Int {
 }
 
 //fun LongestSubStringWithoutRepeatingCharacters
+/** Returns the longest substring without repeated characters. */
 fun printLongestSubString(s: String): String {
     val map = mutableMapOf<Char, Int>()
     var left = 0

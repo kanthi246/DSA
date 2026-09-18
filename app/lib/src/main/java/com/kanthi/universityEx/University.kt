@@ -1,6 +1,7 @@
 package com.kanthi.universityEx
 
 
+/** Demonstrates ranking paid courses by subscriptions. */
 fun main(){
 
     val university = University(StudentRepository())
@@ -8,8 +9,10 @@ fun main(){
 
 }
 
+/** Calculates course statistics from the sample student repository. */
 class University(private val repository: StudentRepository) {
 
+    /** Returns up to [coursesCount] paid courses with their subscription counts. */
     fun getPaidCoursesWithTheNumbersOfSubscribedStudents(
         coursesCount: Int
     ): Map<Course, Int> {

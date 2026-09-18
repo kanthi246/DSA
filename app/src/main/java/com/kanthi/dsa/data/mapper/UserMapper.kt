@@ -4,6 +4,7 @@ import com.kanthi.dsa.data.model.UserResponseItem
 import com.kanthi.dsa.domain.model.User
 import com.kanthi.dsa.domain.model.UserAddress
 
+/** Converts one API response item into a user used by the UI. */
 fun UserResponseItem.toUser(): User {
     return User(
         id = id,

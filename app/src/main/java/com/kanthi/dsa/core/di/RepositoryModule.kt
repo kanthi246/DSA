@@ -10,10 +10,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
+/** Tells Hilt which implementation to use for [UserRepository]. */
 abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    /** Binds the data layer repository to the domain interface. */
     abstract fun bindsUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
 
 }

@@ -76,19 +76,9 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.gson)
 
-    // Paging (infinite scroll)
-    implementation(libs.androidx.paging.compose)
-    implementation(libs.androidx.paging.runtime)
-
-    // Coil
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
-
     // Unit tests
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
-    testImplementation(libs.turbine)
-
 
 }

@@ -1,7 +1,5 @@
 package com.kanthi.dsa.data.repository
 
-import app.cash.turbine.test
-import com.kanthi.dsa.core.Resource
 import com.kanthi.dsa.data.model.Address
 import com.kanthi.dsa.data.model.Company
 import com.kanthi.dsa.data.model.Geo
@@ -75,32 +73,20 @@ class UserRepositoryImplTest {
     }
 
     @Test
-    fun `getUsers emits loading then API data when request succeeds`() = runTest {
+    fun `getUsers returns mapped API data when request succeeds`() = runTest {
         coEvery { apiService.getUsers() } returns userResponse
 
-        repository.getUsers().test {
-            assertEquals(Resource.Loading, awaitItem())
-            assertEquals(Resource.Success(expectedUsers), awaitItem())
-
-            cancelAndIgnoreRemainingEvents()
-        }
+        assertEquals(expectedUsers, repository.getUsers())
 
         coVerify(exactly = 1) { apiService.getUsers() }
     }
 
     @Test
-    fun `getUsers emits loading then error when request fails`() = runTest {
+    fun `getUsers propagates error when request fails`() = runTest {
         coEvery { apiService.getUsers() } throws Exception("No internet connection")
 
-        repository.getUsers().test {
-            assertEquals(Resource.Loading, awaitItem())
-            assertEquals(
-                Resource.Error("No internet connection"),
-                awaitItem()
-            )
-
-            cancelAndIgnoreRemainingEvents()
-        }
+        val error = requireNotNull(runCatching { repository.getUsers() }.exceptionOrNull())
+        assertEquals("No internet connection", error.message)
 
         coVerify(exactly = 1) { apiService.getUsers() }
     }

@@ -15,12 +15,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,17 +30,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil3.compose.AsyncImage
 import com.kanthi.dsa.domain.model.User
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
+/** Displays the user list using the ViewModel's current state. */
 fun UserScreen(
     onUserClick: (User) -> Unit,
     userViewModel: UserViewModel = hiltViewModel()
@@ -76,6 +74,7 @@ fun UserScreen(
 }
 
 @Composable
+/** Shows a progress indicator while users are loading. */
 fun LoadingContent(modifier: Modifier = Modifier) {
     Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
@@ -83,6 +82,7 @@ fun LoadingContent(modifier: Modifier = Modifier) {
 }
 
 @Composable
+/** Shows the message from a failed user request. */
 fun ErrorContent(message: String, modifier: Modifier = Modifier) {
     Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(
@@ -95,6 +95,7 @@ fun ErrorContent(message: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
+/** Renders the loaded users in a scrolling list. */
 fun LoadUsers(
     users: List<User>,
     onUserClick: (User) -> Unit,
@@ -107,7 +108,7 @@ fun LoadUsers(
             end = 16.dp,
             bottom = contentPadding.calculateBottomPadding() + 16.dp
         ),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(users, key = { it.id }) { user ->
             UserCard(user = user, onClick = { onUserClick(user) })
@@ -116,49 +117,45 @@ fun LoadUsers(
 }
 
 @Composable
+/** Displays one user and forwards taps to the caller. */
 fun UserCard(user: User, onClick: () -> Unit) {
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
     ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = "https://i.pravatar.cc/160?img=${(user.id % 70) + 1}",
-                contentDescription = "Profile image for ${user.name}",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(CircleShape)
+        Column(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+            Text(
+                text = user.name,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold
             )
-
-            Spacer(Modifier.width(16.dp))
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = user.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
+            Spacer(Modifier.height(6.dp))
+            Text(
+                text = user.email,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(Modifier.height(6.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+               Icon(imageVector = Icons.Outlined.Phone,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(18.dp)
                 )
-                Spacer(Modifier.height(6.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    androidx.compose.material3.Icon(
-                        imageVector = Icons.Outlined.Phone,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(Modifier.width(6.dp))
-                    Text(
-                        text = user.phone,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                Spacer(Modifier.width(6.dp))
+                Text(
+                    text = user.phone,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
+            Spacer(Modifier.height(6.dp))
+            Text(
+                text = user.website,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }

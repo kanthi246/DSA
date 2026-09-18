@@ -13,7 +13,9 @@ import com.kanthi.dsa.presenter.userscreen.UserCard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+/** Android entry point that hosts the Compose user screens. */
 class MainActivity : ComponentActivity() {
+    /** Creates the themed navigation UI when the activity starts. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
+/** Shows a sample user card in Android Studio's Compose preview. */
 fun UserCardPreview() {
     DSATheme {
         UserCard(

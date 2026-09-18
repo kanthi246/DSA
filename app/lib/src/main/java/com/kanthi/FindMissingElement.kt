@@ -1,11 +1,13 @@
 package com.kanthi
 
+/** Demonstrates two ways to find a missing number. */
 fun main() {
     val arr = intArrayOf(1, 2, 3, 5, 6, 7, 8)
     println("Missing Element: ${findMissingElement(arr)}")
     println("Missing Element Using Hash: ${findMissingItemUsingSet(arr)}")
 }
 
+/** Finds the missing number from 1 through n using the expected sum. */
 fun findMissingElement(arr: IntArray): Int {
     val n = arr.size + 1
     return (n * (n + 1) / 2) - arr.sum() //21-24
@@ -15,6 +17,7 @@ fun findMissingElement(arr: IntArray): Int {
     // Approach :- Mathematical / Formula approach
 }
 
+/** Finds the missing number from 1 through n with a set. */
 fun findMissingItemUsingSet(array: IntArray):Int {
     var missingElement = 0
     val set = array.toHashSet()
@@ -34,6 +37,7 @@ fun findMissingItemUsingSet(array: IntArray):Int {
 //Note :- even if we create a new method to add all the
 // elements the time complexity is still 0(n)
 //Because it still needs to visit all values to add
+/** Adds every value in [arr]. */
 fun addAllElements(arr: IntArray):Int{
      var value = 0
     for(item in arr){

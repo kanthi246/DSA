@@ -14,6 +14,7 @@ import com.kanthi.dsa.presenter.userscreen.UserViewModel
 
 
 @Composable
+/** Connects the user list and detail screens through Navigation Compose. */
 fun UserNavigation() {
 
     val navController = rememberNavController()

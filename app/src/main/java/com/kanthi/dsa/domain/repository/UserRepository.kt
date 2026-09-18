@@ -1,11 +1,11 @@
 package com.kanthi.dsa.domain.repository
 
-import com.kanthi.dsa.core.Resource
 import com.kanthi.dsa.domain.model.User
-import kotlinx.coroutines.flow.Flow
 
+/** Domain contract for loading users, independent of the API implementation. */
 interface UserRepository {
 
-    fun getUsers(): Flow<Resource<List<User>>>
+    /** Loads users or throws when loading fails. */
+    suspend fun getUsers(): List<User>
 
 }

@@ -1,5 +1,6 @@
 package com.kanthi
 
+/** Runs examples of common array operations. */
 fun main() {
     val array = intArrayOf(1, 9, 8, 4, 0, 0, 2, 7)
 
@@ -27,6 +28,7 @@ fun main() {
 
 
 //reverse the array
+/** Reverses [arr] in place and returns it. */
 fun reverseArray(arr: IntArray) : IntArray {
     var left = 0
     var right = arr.size -1
@@ -44,6 +46,7 @@ fun reverseArray(arr: IntArray) : IntArray {
 }
 
 //find the largest element in an array
+/** Finds the largest value in a nonempty array. */
 fun findLargest(array: IntArray): Int {
     var largest = array[0]
     for (item in array) {
@@ -58,6 +61,7 @@ fun findLargest(array: IntArray): Int {
 }
 
 //find the Second largest element in an array
+/** Finds the second distinct largest value in a nonempty array. */
 fun findSecondLargest(array: IntArray): Int {
     var firstLargest = array[0] //10
     var secondLargest = Int.MIN_VALUE
@@ -76,6 +80,7 @@ fun findSecondLargest(array: IntArray): Int {
 }
 
 //move all the zeros to end
+/** Moves zeros to the end of [array] while preserving other values' order. */
 fun moveZeros(array: IntArray) : IntArray {
     var i = 0
     for(item in array){
@@ -94,6 +99,7 @@ fun moveZeros(array: IntArray) : IntArray {
     // Approach :- Two Pointer Traversal
 }
 
+/** Finds the maximum sum of a contiguous subarray in a nonempty array. */
 fun subArray(array: IntArray): Int {
     var current = array[0]
     var max = array[0]

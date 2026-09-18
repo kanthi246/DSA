@@ -1,10 +1,12 @@
 package com.kanthi
 
+/** Demonstrates string and number palindrome checks. */
 fun main(){
     println("IsPalindrome:-${isPalindrome("kanthi")}")
     println("IsPalindromeNumber:-${isPalindromeNumber(121)}")
 }
 
+/** Checks whether a nonempty string reads the same in both directions. */
 fun isPalindrome(value: String?):Boolean{
 
     if (value.isNullOrEmpty()) return false
@@ -25,6 +27,7 @@ fun isPalindrome(value: String?):Boolean{
     // Approach :- Two Pointer
 }
 
+/** Checks whether the decimal digits of [x] form a palindrome. */
 fun isPalindromeNumber(x: Int): Boolean {
     val str = x.toString()
     var left = 0

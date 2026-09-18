@@ -1,11 +1,13 @@
 package com.kanthi
 
+/** Runs a binary search example on a sorted array. */
 fun main(){
     val array = intArrayOf(2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91)
     val target = 45
     println("Binary Search:- ${binarySearch(array,target)}")
 }
 
+/** Returns [target] if found in a sorted array, or -1 otherwise. */
 fun binarySearch(array: IntArray?, target: Int): Any {
 
     array?.let { list ->
