@@ -27,6 +27,7 @@ fun UserNavigation() {
                 }
             )
         }
+
         composable(
             route = Screen.UserDetail.route,
             arguments = listOf(navArgument("userId") { type = NavType.IntType })

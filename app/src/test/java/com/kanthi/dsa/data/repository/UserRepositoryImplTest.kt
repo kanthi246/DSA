@@ -7,6 +7,7 @@ import com.kanthi.dsa.data.model.UserResponse
 import com.kanthi.dsa.data.model.UserResponseItem
 import com.kanthi.dsa.data.remote.UserApiService
 import com.kanthi.dsa.domain.model.User
+import com.kanthi.dsa.domain.model.UserAddress
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -17,12 +18,15 @@ import org.junit.Test
 
 class UserRepositoryImplTest {
 
+    // MockK creates a substitute for the API dependency, so no HTTP request occurs.
     private val apiService = mockk<UserApiService>()
+    // Keep the repository real: its mapping and error behavior are what we test.
     private val repository = UserRepositoryImpl(apiService)
 
     private lateinit var userResponse: UserResponse
     private lateinit var expectedUsers: List<User>
 
+    // JUnit calls @Before before each @Test to rebuild independent sample data.
     @Before
     fun setUp() {
         userResponse = UserResponse().apply {
@@ -57,7 +61,7 @@ class UserRepositoryImplTest {
                 email = "kanthi@example.com",
                 phone = "9492289246",
                 website = "kanthi.dev",
-                address = com.kanthi.dsa.domain.model.UserAddress(
+                address = UserAddress(
                     street = "Main Street",
                     suite = "Apt 1",
                     city = "Hyderabad",
@@ -74,15 +78,21 @@ class UserRepositoryImplTest {
 
     @Test
     fun `getUsers returns mapped API data when request succeeds`() = runTest {
+        //runTest gives the coroutine context
+        // runTest supplies a coroutine so this test can call suspend functions.
+        // coEvery stubs a suspend call; "returns" provides the mock API data.
         coEvery { apiService.getUsers() } returns userResponse
 
+        // Compare the mapped domain users with the expected values.
         assertEquals(expectedUsers, repository.getUsers())
 
+        // coVerify checks the suspend dependency was called exactly once.
         coVerify(exactly = 1) { apiService.getUsers() }
     }
 
     @Test
     fun `getUsers propagates error when request fails`() = runTest {
+        // "throws" makes the fake API simulate a failed request without network access.
         coEvery { apiService.getUsers() } throws Exception("No internet connection")
 
         val error = requireNotNull(runCatching { repository.getUsers() }.exceptionOrNull())

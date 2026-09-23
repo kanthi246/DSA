@@ -30,7 +30,6 @@ object NetworkModule {
 
         return OkHttpClient.Builder().addNetworkInterceptor(loggingInterceptor)
             .readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).build()
-
     }
 
     @Provides
@@ -39,7 +38,6 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).build()
-
     }
 
 

@@ -19,13 +19,21 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserViewModelTest {
 
+    // Mock the dependency while keeping the ViewModel behavior real.
+    val getUsersUseCase = mockk<GetUsersUseCase>()
+
     private val testDispatcher = UnconfinedTestDispatcher()
 
+    val viewModel = UserViewModel(getUsersUseCase)
+
+    // @Before runs for each test. A local JVM has no Android Main dispatcher,
+    // so give viewModelScope a test dispatcher before creating the ViewModel.
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
     }
 
+    // @After restores global Main so this test does not affect other tests.
     @After
     fun tearDown() {
         Dispatchers.resetMain()
@@ -41,26 +49,24 @@ class UserViewModelTest {
                 phone = "9492289246"
             )
         )
-        val getUsersUseCase = mockk<GetUsersUseCase>()
 
+        // coEvery stubs the suspend invoke() operator used by getUsers().
         coEvery { getUsersUseCase() } returns users
 
-        val viewModel = UserViewModel(getUsersUseCase)
-
+        // UnconfinedTestDispatcher starts the launched coroutine immediately.
         viewModel.getUsers()
 
+        // assertEquals(expected, actual) checks the public StateFlow's current value.
         assertEquals(UiState.Success(users), viewModel.uiState.value)
+
         coVerify(exactly = 1) { getUsersUseCase() }
     }
 
     @Test
     fun `getUsers updates UI state to error when use case throws`() = runTest {
         val errorMessage = "No internet connection"
-        val getUsersUseCase = mockk<GetUsersUseCase>()
 
         coEvery { getUsersUseCase() } throws Exception(errorMessage)
-
-        val viewModel = UserViewModel(getUsersUseCase)
 
         viewModel.getUsers()
 
